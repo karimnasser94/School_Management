@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+
+        <record id="iti_track_view" model="ir.ui.view">
+            <field name="name">Iti Track form view</field>
+            <field name="model">iti.track</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="branch"/>
+                            <field name="info"/>
+                            <field name="description"/>
+                            <field name="capacity"/>
+                            <field name="start_date"/>
+                            <field name="duration"/>
+                            <field name="is_open"/>
+                        </group>
+                        <notebook>
+                            <page string="Students">
+                                <field name="student_ids">
+                                    <tree editable="top">
+                                        <field name="name"/>
+                                        <field name="email"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="age"/>
+                                                <field name="salary"/>
+                                            </group>
+                                        </sheet>
+
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+
+            </field>
+
+        </record>
+
+
+        <record id="iti_track_action" model="ir.actions.act_window">
+            <field name="name">Tracks</field>
+            <field name="res_model">iti.track</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="track_root_action_menu"
+              name="Tracks "
+              sequence="2"
+        />
+        <menuitem id="track_main_action_menu"
+                  name="Track"
+                  action="iti_track_action"
+                  parent="track_root_action_menu"
+                  sequence="1"
+        />
+    </data>
+</odoo>

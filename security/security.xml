@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="iti_school_user" model="res.groups">
+            <field name="name">School User</field>
+        </record>
+
+        <record id="iti_school_manager" model="res.groups">
+            <field name="name">School Manager</field>
+        </record>
+
+        <record id="iti_view_own_student" model="ir.rule">
+            <field name="name">show only own users</field>
+            <field name="model_id" ref="model_iti_student"/>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+
+        </record>
+
+
+    </data>
+</odoo>

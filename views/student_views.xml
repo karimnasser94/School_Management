@@ -1,0 +1,90 @@
+<odoo>
+    <!--Form View for school menu -->
+    <record id="School_view_form" model="ir.ui.view">
+        <field name="name">School.view.form</field>
+        <field name="model">iti.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="set_to_new" type="object" string="Set To New"
+                    attrs="{'invisible':[('state','!=','interviewing')]}"/>
+                    <button name="set_to_interviewing" type="object" string="Set To Interviewing"
+                    attrs="{'invisible':[('state','=','interviewing')]}"/>
+                    <button name="set_to_accepted" type="object" string="Accept"
+                    attrs="{'invisible':[('state','in',('rejected','accepted'))]}"/>
+                    <button name="%(iti_track_wizard_action)d" type="action" string="Create New Track"/>
+                    <button name="set_to_rejected" type="object" string="Reject"
+                    attrs="{'invisible':[('state','in',('rejected','accepted'))]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,interviewing,accepted"/>
+                </header>
+                <sheet>
+                    <p class="alert alert-info">Zein Karim Nasser</p>
+                    <group string="Personal Info">
+                        <group>
+                        <field name="name"/>
+                        <field name="track_id" required="True" domain="[('is_open','=',True)]"/>
+                        <field name="branch" attrs="{'invisible':[('track_id','=',False)]}"/>
+                        <field name="salary" />
+                        </group>
+                        <group>
+                        <field name="email" attrs="{'required':['|',('track_id','!=',False),('age','>', 7)]}"/>
+                        <field name="skills_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                        <field name="birthdate"/>
+                        <field name="age"/>
+                        <field name="computed_age"/>
+                        </group>
+                        <group>
+                        <field name="info"/>
+                        </group>
+                        <group string="Interview_Info">
+                            <field name ='interview_time'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+<!--                        <page string="Skills">-->
+<!--                            <field name="skills_ids"/>-->
+<!--                        </page>-->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Tree view for school -->
+    <record id="School_view_tree" model="ir.ui.view">
+        <field name="name">School.view.tree</field>
+        <field name="model">iti.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="track_id"/>
+                <field name="birthdate"/>
+                <field name="email"/>
+                <field name="computed_age"/>
+
+            </tree>
+        </field>
+    </record>
+    <!-- Action for form and tree to call it on window -->
+    <record id="school_view_action" model="ir.actions.act_window">
+        <field name="name">School</field>
+        <field name="res_model">iti.student</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="school_root_action_menu"
+              name="School Management "
+              sequence="2"
+    />
+    <menuitem id="school_main_action_menu"
+              name="School"
+              action="school_view_action"
+              parent="school_root_action_menu"
+              sequence="1"
+    />
+</odoo>
